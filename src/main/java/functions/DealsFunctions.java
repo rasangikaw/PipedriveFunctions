@@ -138,7 +138,7 @@ public class DealsFunctions extends BaseFunctionObject {
     public void deleteAllDealsByDragAndDrop() throws Exception {
         try {
             logger.log(Level.INFO, "Start | deleteAllDealsByDragAndDrop()");
-            if (dealsPage.isDealsAvailable()) {
+            if (dealsPage.isDealsCardsDisplayed()) {
                 int dealCount = dealsPage.getDealCountInPage();
                 for (int i = 1; i <= dealCount; i++) {
                     dealsPage.dragAndDropFirstDealDelete();
