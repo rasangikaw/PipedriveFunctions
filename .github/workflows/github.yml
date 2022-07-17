@@ -1,12 +1,12 @@
 name: Deploy Functions Artifact
 
-  -uses:-ssettings-xml
-
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  repository_dispatch:
+    types: [startFunctions_Workflow]
   
 jobs:
   build:
@@ -65,5 +65,13 @@ jobs:
       run: mvn clean deploy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: trigger Tests workflow
+      uses: mvasigh/dispatch-action@main
+      with:
+          token: ${{ secrets.GH_TOKEN }}
+          repo:  PipedriveTestObjects
+          owner: rasangikaw
+          event_type: startTests_Workflow 
         
     needs: [build, package]
